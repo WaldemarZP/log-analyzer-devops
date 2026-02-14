@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import re
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 
 
 # def count_lines(filepath: str) -> int:
@@ -21,13 +22,14 @@ def read_log_files(filepath: str) -> str:
         raise PermissionError(f"Don't have permission to read {filepath}")
 
 
-def parse_log_levels(content: str) -> Dict[str, int]:
+def parse_log_levels(content: str, level_filter: str = None) -> Dict[str, int]:
     pattern = r'\b(ERROR|WARNING|INFO)\b'
     matches = re.findall(pattern, content, re.IGNORECASE)
 
     stats = {"ERROR": 0, "WARNING": 0, "INFO": 0}
     for level in matches:
-        stats[level.upper()] += 1
+        if level_filter is None or level.upper() == level_filter.upper():
+            stats[level.upper()] += 1
 
     return stats
 
@@ -42,12 +44,17 @@ def save_reports(stats: Dict[str, int], output_path: str = "report.json") -> Non
 
 
 def main():
-    log_path = "sample.log"
+    parser = argparse.ArgumentParser(description="Analyze log levels")
+    parser.add_argument("--file", type=str, default="sample.log", help="Path to the log file")
+    parser.add_argument("--output", type=str, default="report.json", help="Path to the report file")
+    parser.add_argument("--level", type=str, help="Filter by log level (ERROR, WARNING, INFO)")
+
+    args = parser.parse_args()
 
     try:
-        content = read_log_files(log_path)
-        stats = parse_log_levels(content)
-        save_reports(stats)
+        content = read_log_files(args.file)
+        stats = parse_log_levels(content, args.level)
+        save_reports(stats, args.output)
 
         print("\n Stats by logs level:")
         for level, count in stats.items():
