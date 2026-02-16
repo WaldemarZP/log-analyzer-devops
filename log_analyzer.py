@@ -1,9 +1,21 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import logging
 import re
 from pathlib import Path
 from typing import Dict
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("analyzer.log", encoding="utf-8"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 
 # def count_lines(filepath: str) -> int:
@@ -15,14 +27,18 @@ from typing import Dict
 def read_log_files(filepath: str) -> str:
     path = Path(filepath)
     try:
+        logger.info(f"Reading logs from {filepath}")
         return path.read_text(encoding='utf-8', errors='ignore')
     except FileNotFoundError:
-        raise FileNotFoundError(f"File {filepath} doesn't exist")
+        logger.error(f"File {filepath} doesn't exist")
+        raise
     except PermissionError:
-        raise PermissionError(f"Don't have permission to read {filepath}")
+        logger.error(f"Don't have permission to read {filepath}")
+        raise
 
 
 def parse_log_levels(content: str, level_filter: str = None) -> Dict[str, int]:
+    logger.info(f"Start parsing log")
     pattern = r'\b(ERROR|WARNING|INFO)\b'
     matches = re.findall(pattern, content, re.IGNORECASE)
 
@@ -31,16 +47,19 @@ def parse_log_levels(content: str, level_filter: str = None) -> Dict[str, int]:
         if level_filter is None or level.upper() == level_filter.upper():
             stats[level.upper()] += 1
 
+    logger.info(f"Parsing completed: {stats}")
     return stats
 
 
 def save_reports(stats: Dict[str, int], output_path: str = "report.json") -> None:
     try:
+        logger.info(f"Saving report to {output_path}")
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(stats, f, indent=4)
-        print(f"Report has been saved to {output_path}")
+        logger.info("Report saved")
     except Exception as e:
-        print(f"Error when saving report to {e}")
+        logger.error(f"Error when saving report to {e}")
+        raise
 
 
 def main():
@@ -52,15 +71,18 @@ def main():
     args = parser.parse_args()
 
     try:
+        logger.info(f"LAUNCHING THE LOG ANALYZER")
+        logger.info(f"Parameters: file:{args.file}, output:{args.output}, level:{args.level}")
+
         content = read_log_files(args.file)
         stats = parse_log_levels(content, args.level)
         save_reports(stats, args.output)
 
-        print("\n Stats by logs level:")
+        logger.info("Stats by logs level:")
         for level, count in stats.items():
-            print(f" {level}: {count}")
+            logger.info(f" {level}: {count}")
     except Exception as e:
-        print(f"Critical Error: {e}")
+        logger.critical(f"Critical Error: {e}", exc_info=True)
 
 
 if __name__ == "__main__":

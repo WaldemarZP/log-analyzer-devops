@@ -1,0 +1,31 @@
+2026-02-16 18:30:18,478 - INFO - Reading logs from sample.log
+2026-02-16 18:39:34,672 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-16 18:39:34,672 - INFO - Parameters: file:sample.log, output:report_v5.json, level:WARNING
+2026-02-16 18:39:34,673 - INFO - Reading logs from sample.log
+2026-02-16 18:39:34,673 - INFO - Start parsing log
+2026-02-16 18:39:34,673 - INFO - Parsing completed: {'ERROR': 0, 'WARNING': 5, 'INFO': 0}
+2026-02-16 18:39:34,673 - INFO - Saving report to report_v5.json
+2026-02-16 18:39:34,673 - INFO - Report saved
+2026-02-16 18:39:34,674 - INFO - Stats by logs level:
+2026-02-16 18:39:34,674 - INFO -  ERROR: 0
+2026-02-16 18:39:34,674 - INFO -  WARNING: 5
+2026-02-16 18:39:34,674 - INFO -  INFO: 0
+2026-02-16 18:40:26,839 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-16 18:40:26,839 - INFO - Parameters: file:non_existent.log, output:report.json, level:None
+2026-02-16 18:40:26,839 - INFO - Reading logs from non_existent.log
+2026-02-16 18:40:26,839 - ERROR - File non_existent.log doesn't exist
+2026-02-16 18:40:26,839 - CRITICAL - Critical Error: [Errno 2] No such file or directory: 'non_existent.log'
+Traceback (most recent call last):
+  File "/home/vova/PycharmProjects/devops-project/log-analyzer/log_analyzer.py", line 78, in main
+    content = read_log_files(args.file)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vova/PycharmProjects/devops-project/log-analyzer/log_analyzer.py", line 32, in read_log_files
+    return path.read_text(encoding='utf-8', errors='ignore')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'non_existent.log'
