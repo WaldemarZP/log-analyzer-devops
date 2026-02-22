@@ -29,3 +29,29 @@ Traceback (most recent call last):
     return io.open(self, mode, buffering, encoding, errors, newline)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 FileNotFoundError: [Errno 2] No such file or directory: 'non_existent.log'
+2026-02-22 13:56:08,101 - INFO - Prometheus metrics server started on port 8000
+2026-02-22 13:56:08,102 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-22 13:56:08,102 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-02-22 13:56:08,103 - INFO - Reading logs from sample.log
+2026-02-22 13:56:08,103 - INFO - Start parsing log
+2026-02-22 13:56:08,104 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-02-22 13:56:08,104 - INFO - Saving report to report.json
+2026-02-22 13:56:08,104 - INFO - Report saved
+2026-02-22 13:56:08,104 - INFO - Stats by logs level:
+2026-02-22 13:56:08,104 - INFO -  ERROR: 5
+2026-02-22 13:56:08,104 - INFO -  WARNING: 5
+2026-02-22 13:56:08,104 - INFO -  INFO: 42
+2026-02-22 14:00:08,244 - INFO - Prometheus metrics server started on port 8000
+2026-02-22 14:00:08,244 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-22 14:00:08,244 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-02-22 14:00:08,245 - INFO - Reading logs from sample.log
+2026-02-22 14:00:08,245 - INFO - Start parsing log
+2026-02-22 14:00:08,245 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-02-22 14:00:08,245 - INFO - Saving report to report.json
+2026-02-22 14:00:08,246 - INFO - Report saved
+2026-02-22 14:00:08,246 - INFO - Stats by logs level:
+2026-02-22 14:00:08,246 - INFO -  ERROR: 5
+2026-02-22 14:00:08,246 - INFO -  WARNING: 5
+2026-02-22 14:00:08,246 - INFO -  INFO: 42
+2026-02-22 14:00:08,246 - INFO - Keeping metrics server alive for 60 seconds...
+2026-02-22 14:01:08,246 - INFO - Exiting after 60 seconds

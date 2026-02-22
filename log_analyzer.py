@@ -3,8 +3,10 @@ import argparse
 import json
 import logging
 import re
+import time
 from pathlib import Path
 from typing import Dict
+from prometheus_client import start_http_server, Counter, Gauge, Histogram
 
 
 logging.basicConfig(
@@ -18,21 +20,31 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+LOG_LINES_PROCESSED = Counter('log_lines_processed_total', 'Total lines processed from log files')
+LOG_ERRORS = Counter('log_errors_total', 'Total number of errors during log processing')
+PROCESSING_TIME = Histogram('log_processing_seconds', 'Time spent processing logs')
+LOG_LEVELS = Gauge('log_levels_total', 'Count of log levels', ['level'])
+
+
 # def count_lines(filepath: str) -> int:
 #     """Counts the number of lines in the file"""
 #     with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
 #         return sum(1 for _ in f)
 
-
+@PROCESSING_TIME.time()
 def read_log_files(filepath: str) -> str:
     path = Path(filepath)
     try:
         logger.info(f"Reading logs from {filepath}")
-        return path.read_text(encoding='utf-8', errors='ignore')
+        content = path.read_text(encoding='utf-8', errors='ignore')
+        LOG_LINES_PROCESSED.inc(len(content.split('\n')))
+        return content
     except FileNotFoundError:
+        LOG_ERRORS.inc()
         logger.error(f"File {filepath} doesn't exist")
         raise
     except PermissionError:
+        LOG_ERRORS.inc()
         logger.error(f"Don't have permission to read {filepath}")
         raise
 
@@ -44,8 +56,8 @@ def parse_log_levels(content: str, level_filter: str = None) -> Dict[str, int]:
 
     stats = {"ERROR": 0, "WARNING": 0, "INFO": 0}
     for level in matches:
-        if level_filter is None or level.upper() == level_filter.upper():
-            stats[level.upper()] += 1
+        stats[level.upper()] += 1
+        LOG_LEVELS.labels(level=level.upper()).set(stats[level.upper()])
 
     logger.info(f"Parsing completed: {stats}")
     return stats
@@ -85,7 +97,14 @@ def main():
         logger.critical(f"Critical Error: {e}", exc_info=True)
 
 
+start_http_server(8000)
+logger.info("Prometheus metrics server started on port 8000")
+
+
 if __name__ == "__main__":
     main()
+    logger.info("Keeping metrics server alive for 60 seconds...")
+    time.sleep(60)
+    logger.info("Exiting after 60 seconds")
     # lines = count_lines("sample.log")
     # print(f"✅ the file contains {lines} lines")
