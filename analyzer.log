@@ -55,3 +55,17 @@ FileNotFoundError: [Errno 2] No such file or directory: 'non_existent.log'
 2026-02-22 14:00:08,246 - INFO -  INFO: 42
 2026-02-22 14:00:08,246 - INFO - Keeping metrics server alive for 60 seconds...
 2026-02-22 14:01:08,246 - INFO - Exiting after 60 seconds
+2026-02-28 12:55:27,497 - INFO - Prometheus metrics server started on port 8000
+2026-02-28 12:55:27,498 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-28 12:55:27,498 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-02-28 12:55:27,498 - INFO - Reading logs from sample.log
+2026-02-28 12:55:27,499 - INFO - Start parsing log
+2026-02-28 12:55:27,499 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-02-28 12:55:27,499 - INFO - Saving report to report.json
+2026-02-28 12:55:27,500 - INFO - Report saved
+2026-02-28 12:55:27,500 - INFO - Stats by logs level:
+2026-02-28 12:55:27,500 - INFO -  ERROR: 5
+2026-02-28 12:55:27,500 - INFO -  WARNING: 5
+2026-02-28 12:55:27,500 - INFO -  INFO: 42
+2026-02-28 12:55:27,500 - INFO - Keeping metrics server alive for 60 seconds...
+2026-02-28 12:56:27,500 - INFO - Exiting after 60 seconds
