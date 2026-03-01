@@ -69,3 +69,171 @@ FileNotFoundError: [Errno 2] No such file or directory: 'non_existent.log'
 2026-02-28 12:55:27,500 - INFO -  INFO: 42
 2026-02-28 12:55:27,500 - INFO - Keeping metrics server alive for 60 seconds...
 2026-02-28 12:56:27,500 - INFO - Exiting after 60 seconds
+2026-02-28 14:44:08,835 - INFO - Prometheus metrics server started on port 8000
+2026-02-28 14:44:08,836 - INFO - LAUNCHING THE LOG ANALYZER
+2026-02-28 14:44:08,836 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-02-28 14:44:08,836 - INFO - Reading logs from sample.log
+2026-02-28 14:44:08,836 - INFO - Start parsing log
+2026-02-28 14:44:08,837 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-02-28 14:44:08,837 - INFO - Saving report to report.json
+2026-02-28 14:44:08,837 - INFO - Report saved
+2026-02-28 14:44:08,837 - INFO - Stats by logs level:
+2026-02-28 14:44:08,837 - INFO -  ERROR: 5
+2026-02-28 14:44:08,837 - INFO -  WARNING: 5
+2026-02-28 14:44:08,837 - INFO -  INFO: 42
+2026-02-28 14:44:08,837 - INFO - Keeping metrics server alive for 60 seconds...
+2026-02-28 14:45:08,837 - INFO - Exiting after 60 seconds
+2026-03-01 14:21:01,521 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 14:21:01,522 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 14:21:01,522 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 14:21:01,522 - INFO - Reading logs from sample.log
+2026-03-01 14:21:01,522 - INFO - Start parsing log
+2026-03-01 14:21:01,523 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 14:21:01,523 - INFO - Saving report to report.json
+2026-03-01 14:21:01,523 - INFO - Report saved
+2026-03-01 14:21:01,523 - INFO - Stats by logs level:
+2026-03-01 14:21:01,523 - INFO -  ERROR: 5
+2026-03-01 14:21:01,523 - INFO -  WARNING: 5
+2026-03-01 14:21:01,523 - INFO -  INFO: 42
+2026-03-01 14:21:01,523 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 14:22:01,524 - INFO - Exiting after 60 seconds
+2026-03-01 14:36:14,992 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 14:36:14,993 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 14:36:14,993 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 14:36:14,993 - INFO - Reading logs from sample.log
+2026-03-01 14:36:14,994 - INFO - Start parsing log
+2026-03-01 14:36:14,994 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 14:36:14,994 - INFO - Saving report to report.json
+2026-03-01 14:36:14,995 - INFO - Report saved
+2026-03-01 14:36:14,995 - INFO - Stats by logs level:
+2026-03-01 14:36:14,995 - INFO -  ERROR: 5
+2026-03-01 14:36:14,995 - INFO -  WARNING: 5
+2026-03-01 14:36:14,995 - INFO -  INFO: 42
+2026-03-01 14:36:14,995 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 14:37:14,995 - INFO - Exiting after 60 seconds
+2026-03-01 15:00:05,540 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 15:00:05,541 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 15:00:05,541 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 15:00:05,541 - INFO - Reading logs from sample.log
+2026-03-01 15:00:05,541 - INFO - Start parsing log
+2026-03-01 15:00:05,542 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 15:00:05,542 - INFO - Saving report to report.json
+2026-03-01 15:00:05,542 - INFO - Report saved
+2026-03-01 15:00:05,542 - INFO - Stats by logs level:
+2026-03-01 15:00:05,543 - INFO -  ERROR: 5
+2026-03-01 15:00:05,543 - INFO -  WARNING: 5
+2026-03-01 15:00:05,543 - INFO -  INFO: 42
+2026-03-01 15:00:05,543 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 15:01:05,543 - INFO - Exiting after 60 seconds
+2026-03-01 15:01:59,272 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 15:01:59,273 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 15:01:59,273 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 15:01:59,273 - INFO - Reading logs from sample.log
+2026-03-01 15:01:59,273 - INFO - Start parsing log
+2026-03-01 15:01:59,274 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 15:01:59,274 - INFO - Saving report to report.json
+2026-03-01 15:01:59,274 - INFO - Report saved
+2026-03-01 15:01:59,274 - INFO - Stats by logs level:
+2026-03-01 15:01:59,274 - INFO -  ERROR: 5
+2026-03-01 15:01:59,274 - INFO -  WARNING: 5
+2026-03-01 15:01:59,274 - INFO -  INFO: 42
+2026-03-01 15:01:59,274 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 15:02:59,275 - INFO - Exiting after 60 seconds
+2026-03-01 15:03:01,948 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 15:03:01,949 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 15:03:01,949 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 15:03:01,949 - INFO - Reading logs from sample.log
+2026-03-01 15:03:01,950 - INFO - Start parsing log
+2026-03-01 15:03:01,950 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 15:03:01,950 - INFO - Saving report to report.json
+2026-03-01 15:03:01,950 - INFO - Report saved
+2026-03-01 15:03:01,950 - INFO - Stats by logs level:
+2026-03-01 15:03:01,950 - INFO -  ERROR: 5
+2026-03-01 15:03:01,951 - INFO -  WARNING: 5
+2026-03-01 15:03:01,951 - INFO -  INFO: 42
+2026-03-01 15:03:01,951 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 15:04:01,951 - INFO - Exiting after 60 seconds
+2026-03-01 15:34:33,642 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 15:34:33,643 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 15:34:33,643 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 15:34:33,643 - INFO - Reading logs from sample.log
+2026-03-01 15:34:33,643 - INFO - Start parsing log
+2026-03-01 15:34:33,644 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 15:34:33,644 - INFO - Saving report to report.json
+2026-03-01 15:34:33,644 - INFO - Report saved
+2026-03-01 15:34:33,644 - INFO - Stats by logs level:
+2026-03-01 15:34:33,644 - INFO -  ERROR: 5
+2026-03-01 15:34:33,644 - INFO -  WARNING: 5
+2026-03-01 15:34:33,644 - INFO -  INFO: 42
+2026-03-01 15:34:33,644 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 15:35:33,644 - INFO - Exiting after 60 seconds
+2026-03-01 15:50:00,702 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 15:50:00,702 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 15:50:00,702 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 15:50:00,703 - INFO - Reading logs from sample.log
+2026-03-01 15:50:00,703 - INFO - Start parsing log
+2026-03-01 15:50:00,703 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 15:50:00,703 - INFO - Saving report to report.json
+2026-03-01 15:50:00,704 - INFO - Report saved
+2026-03-01 15:50:00,704 - INFO - Stats by logs level:
+2026-03-01 15:50:00,704 - INFO -  ERROR: 5
+2026-03-01 15:50:00,704 - INFO -  WARNING: 5
+2026-03-01 15:50:00,704 - INFO -  INFO: 42
+2026-03-01 15:50:00,704 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 15:51:00,704 - INFO - Exiting after 60 seconds
+2026-03-01 16:04:56,639 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 16:04:56,640 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 16:04:56,640 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 16:04:56,640 - INFO - Reading logs from sample.log
+2026-03-01 16:04:56,641 - INFO - Start parsing log
+2026-03-01 16:04:56,641 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 16:04:56,641 - INFO - Saving report to report.json
+2026-03-01 16:04:56,641 - INFO - Report saved
+2026-03-01 16:04:56,642 - INFO - Stats by logs level:
+2026-03-01 16:04:56,642 - INFO -  ERROR: 5
+2026-03-01 16:04:56,642 - INFO -  WARNING: 5
+2026-03-01 16:04:56,642 - INFO -  INFO: 42
+2026-03-01 16:04:56,642 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 16:05:56,642 - INFO - Exiting after 60 seconds
+2026-03-01 16:23:30,011 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 16:23:30,012 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 16:23:30,012 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 16:23:30,012 - INFO - Reading logs from sample.log
+2026-03-01 16:23:30,012 - INFO - Start parsing log
+2026-03-01 16:23:30,013 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 16:23:30,013 - INFO - Saving report to report.json
+2026-03-01 16:23:30,013 - INFO - Report saved
+2026-03-01 16:23:30,013 - INFO - Stats by logs level:
+2026-03-01 16:23:30,013 - INFO -  ERROR: 5
+2026-03-01 16:23:30,013 - INFO -  WARNING: 5
+2026-03-01 16:23:30,013 - INFO -  INFO: 42
+2026-03-01 16:23:30,013 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 16:24:30,014 - INFO - Exiting after 60 seconds
+2026-03-01 16:38:39,846 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 16:38:39,847 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 16:38:39,847 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 16:38:39,847 - INFO - Reading logs from sample.log
+2026-03-01 16:38:39,847 - INFO - Start parsing log
+2026-03-01 16:38:39,848 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 16:38:39,848 - INFO - Saving report to report.json
+2026-03-01 16:38:39,848 - INFO - Report saved
+2026-03-01 16:38:39,848 - INFO - Stats by logs level:
+2026-03-01 16:38:39,848 - INFO -  ERROR: 5
+2026-03-01 16:38:39,848 - INFO -  WARNING: 5
+2026-03-01 16:38:39,849 - INFO -  INFO: 42
+2026-03-01 16:38:39,849 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 16:39:39,849 - INFO - Exiting after 60 seconds
+2026-03-01 16:57:44,138 - INFO - Prometheus metrics server started on port 8000
+2026-03-01 16:57:44,139 - INFO - LAUNCHING THE LOG ANALYZER
+2026-03-01 16:57:44,139 - INFO - Parameters: file:sample.log, output:report.json, level:None
+2026-03-01 16:57:44,139 - INFO - Reading logs from sample.log
+2026-03-01 16:57:44,139 - INFO - Start parsing log
+2026-03-01 16:57:44,140 - INFO - Parsing completed: {'ERROR': 5, 'WARNING': 5, 'INFO': 42}
+2026-03-01 16:57:44,140 - INFO - Saving report to report.json
+2026-03-01 16:57:44,141 - INFO - Report saved
+2026-03-01 16:57:44,141 - INFO - Stats by logs level:
+2026-03-01 16:57:44,141 - INFO -  ERROR: 5
+2026-03-01 16:57:44,141 - INFO -  WARNING: 5
+2026-03-01 16:57:44,141 - INFO -  INFO: 42
+2026-03-01 16:57:44,141 - INFO - Keeping metrics server alive for 60 seconds...
+2026-03-01 16:58:44,141 - INFO - Exiting after 60 seconds
