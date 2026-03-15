@@ -24,3 +24,7 @@ multipass shell log-analyzer-vm
 git clone https://github.com/WaldemarZP/log-analyzer-devops.git
 cd log-analyzer-devops
 sudo ./deploy.sh
+
+# 4. Enable and start continuous log analysis (24/7 operation)
+sudo systemctl enable log-analyzer.service
+sudo systemctl start log-analyzer.service

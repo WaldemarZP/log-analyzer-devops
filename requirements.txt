@@ -4,3 +4,4 @@ pluggy==1.6.0
 prometheus_client==0.24.1
 Pygments==2.19.2
 pytest==9.0.2
+requests==2.32.0
