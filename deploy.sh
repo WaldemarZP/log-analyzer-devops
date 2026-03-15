@@ -27,8 +27,8 @@ usermod -aG docker "$SCRIPT_USER"
 
 # Step 4: Installing Python dependencies
 echo "🐍 Installing Python dependencies..."
-cd /home/"$SCRIPT_USER"/log-analyzer-devops
-sudo -u "$SCRIPT_USER" pip3 install -r requirements.txt --break-system-packages
+apt install -y python3-requests
+# pip3 install -r requirements.txt --break-system-packages
 
 # Step 5: Configuring Nginx
 echo "⚙️  Configuring Nginx reverse proxy..."
