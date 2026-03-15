@@ -1,0 +1,17 @@
+[Unit]
+Description=Log Analyzer Service (continuous monitoring)
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/log-analyzer-devops
+ExecStart=/usr/bin/python3 /home/ubuntu/log-analyzer-devops/log_analyzer.py --file /home/ubuntu/log-analyzer-devops/sample.log
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
