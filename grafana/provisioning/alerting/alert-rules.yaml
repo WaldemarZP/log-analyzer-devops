@@ -9,11 +9,11 @@ groups:
       - uid: log-error-alert
         title: Log Error Alert
         condition: A
-        
+        queries:
           - refId: A
             model:
               datasource: Prometheus
-              expr: 'log_levels_total{level="ERROR"}'
+              expr: 'log_levels_total{level="ERROR"} > 0'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
@@ -21,8 +21,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: '🚨 ERROR in logs: {{ $value }} errors'
-          description: 'Detected {{ $value }} ERROR logs from instance {{ $labels.instance }}'
+          summary: '🚨 ERROR in logs: {{ $values.A }} errors'
+          description: 'Detected {{ $values.A }} ERROR logs from instance {{ $labels.instance }}'
         labels:
           service: log-analyzer
           severity: critical
@@ -30,11 +30,11 @@ groups:
       - uid: log-warning-alert
         title: Log Warning Alert
         condition: A
-        
+        queries:
           - refId: A
             model:
               datasource: Prometheus
-              expr: 'log_levels_total{level="WARNING"}'
+              expr: 'log_levels_total{level="WARNING"} > 5'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
@@ -42,8 +42,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: '⚠️ WARNING in logs: {{ $value }} warnings'
-          description: 'Detected {{ $value }} WARNING logs from instance {{ $labels.instance }}'
+          summary: '⚠️ WARNING in logs: {{ $values.A }} warnings'
+          description: 'Detected {{ $values.A }} WARNING logs from instance {{ $labels.instance }}'
         labels:
           service: log-analyzer
           severity: warning
@@ -51,11 +51,11 @@ groups:
       - uid: log-processing-error-alert
         title: Log Processing Error Alert
         condition: A
-        
+        queries:
           - refId: A
             model:
               datasource: Prometheus
-              expr: 'log_errors_total'
+              expr: 'log_errors_total > 0'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
@@ -63,8 +63,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: '🔥 Log processing errors: {{ $value }}'
-          description: 'Script encountered {{ $value }} errors while processing logs'
+          summary: '🔥 Log processing errors: {{ $values.A }}'
+          description: 'Script encountered {{ $values.A }} errors while processing logs'
         labels:
           service: log-analyzer
           severity: critical
