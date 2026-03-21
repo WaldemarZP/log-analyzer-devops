@@ -7,5 +7,5 @@ contactPoints:
       - uid: telegram-receiver
         type: telegram
         settings:
-          bottoken: "8700901376:AAGCZcoJ0w9hKbI1KyO2MWWqD4crbzSOsDo"
-          chatid: "261967840"
+          bottoken: '8700901376:AAGCZcoJ0w9hKbI1KyO2MWWqD4crbzSOsDo'
+          chatid: '261967840'

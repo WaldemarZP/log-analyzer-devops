@@ -4,9 +4,3 @@ policies:
   - orgId: 1
     receiver: telegram-receiver
     group_by: ['...']
-    routes:
-      - receiver: telegram-receiver
-        matchers:
-          - label: severity
-            match: 'critical'
-            type: =
