@@ -11,13 +11,12 @@ groups:
         condition: A
         
           - refId: A
-            datasourceUid: Prometheus
             model:
+              datasource: Prometheus
               expr: 'log_levels_total{level="ERROR"}'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
-              datasource: Prometheus
         execErrState: Error
         for: 1m
         noDataState: NoData
@@ -33,13 +32,12 @@ groups:
         condition: A
         
           - refId: A
-            datasourceUid: Prometheus
             model:
+              datasource: Prometheus
               expr: 'log_levels_total{level="WARNING"}'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
-              datasource: Prometheus
         execErrState: Error
         for: 1m
         noDataState: NoData
@@ -55,13 +53,12 @@ groups:
         condition: A
         
           - refId: A
-            datasourceUid: Prometheus
             model:
+              datasource: Prometheus
               expr: 'log_errors_total'
               intervalMs: 60000
               maxDataPoints: 43200
               refId: A
-              datasource: Prometheus
         execErrState: Error
         for: 1m
         noDataState: NoData
