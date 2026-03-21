@@ -9,9 +9,9 @@ groups:
       - uid: log-error-alert
         title: Log Error Alert
         condition: A
-        data:
+        
           - refId: A
-            datasourceUid: cffeqpjhh96v4a
+            datasourceName: Prometheus
             model:
               expr: 'log_levels_total{level="ERROR"}'
               intervalMs: 60000
@@ -31,9 +31,9 @@ groups:
       - uid: log-warning-alert
         title: Log Warning Alert
         condition: A
-        data:
+        
           - refId: A
-            datasourceUid: cffeqpjhh96v4a
+            datasourceName: Prometheus
             model:
               expr: 'log_levels_total{level="WARNING"}'
               intervalMs: 60000
@@ -53,9 +53,9 @@ groups:
       - uid: log-processing-error-alert
         title: Log Processing Error Alert
         condition: A
-        data:
+        
           - refId: A
-            datasourceUid: cffeqpjhh96v4a
+            datasourceName: Prometheus
             model:
               expr: 'log_errors_total'
               intervalMs: 60000
