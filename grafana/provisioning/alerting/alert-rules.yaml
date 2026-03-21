@@ -22,8 +22,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: "🚨 ERROR in logs: {{ \$value }} errors"
-          description: "Detected {{ \$value }} ERROR logs from instance {{ \$labels.instance }}"
+          summary: '🚨 ERROR in logs: {{ $value }} errors'
+          description: 'Detected {{ $value }} ERROR logs from instance {{ $labels.instance }}'
         labels:
           service: log-analyzer
           severity: critical
@@ -44,8 +44,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: "⚠️ WARNING in logs: {{ \$value }} warnings"
-          description: "Detected {{ \$value }} WARNING logs from instance {{ \$labels.instance }}"
+          summary: '⚠️ WARNING in logs: {{ $value }} warnings'
+          description: 'Detected {{ $value }} WARNING logs from instance {{ $labels.instance }}'
         labels:
           service: log-analyzer
           severity: warning
@@ -66,8 +66,8 @@ groups:
         for: 1m
         noDataState: NoData
         annotations:
-          summary: "🔥 Log processing errors: {{ \$value }}"
-          description: "Script encountered {{ \$value }} errors while processing logs"
+          summary: '🔥 Log processing errors: {{ $value }}'
+          description: 'Script encountered {{ $value }} errors while processing logs'
         labels:
           service: log-analyzer
           severity: critical
