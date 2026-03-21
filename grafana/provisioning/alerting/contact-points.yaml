@@ -1,0 +1,11 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: Telegram Alert
+    receivers:
+      - uid: telegram-receiver
+        type: telegram
+        settings:
+          bottoken: "8700901376:AAGCZcoJ0w9hKbI1KyO2MWWqD4crbzSOsDo"
+          chatid: "261967840"

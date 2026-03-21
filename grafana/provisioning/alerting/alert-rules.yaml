@@ -1,0 +1,73 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: Log Analyzer Alerts
+    folder: Log Analyzer Alerts
+    interval: 60s
+    rules:
+      - uid: log-error-alert
+        title: Log Error Alert
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: cffeqpjhh96v4a
+            model:
+              expr: 'log_levels_total{level="ERROR"}'
+              intervalMs: 60000
+              maxDataPoints: 43200
+              refId: A
+              datasource: Prometheus
+        execErrState: Error
+        for: 1m
+        noDataState: NoData
+        annotations:
+          summary: "🚨 ERROR in logs: {{ $value }} errors"
+          description: "Detected {{ $value }} ERROR logs from instance {{ $labels.instance }}"
+        labels:
+          service: log-analyzer
+          severity: critical
+
+      - uid: log-warning-alert
+        title: Log Warning Alert
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: cffeqpjhh96v4a
+            model:
+              expr: 'log_levels_total{level="WARNING"}'
+              intervalMs: 60000
+              maxDataPoints: 43200
+              refId: A
+              datasource: Prometheus
+        execErrState: Error
+        for: 1m
+        noDataState: NoData
+        annotations:
+          summary: "⚠️ WARNING in logs: {{ $value }} warnings"
+          description: "Detected {{ $value }} WARNING logs from instance {{ $labels.instance }}"
+        labels:
+          service: log-analyzer
+          severity: warning
+
+      - uid: log-processing-error-alert
+        title: Log Processing Error Alert
+        condition: A
+        data:
+          - refId: A
+            datasourceUid: cffeqpjhh96v4a
+            model:
+              expr: 'log_errors_total'
+              intervalMs: 60000
+              maxDataPoints: 43200
+              refId: A
+              datasource: Prometheus
+        execErrState: Error
+        for: 1m
+        noDataState: NoData
+        annotations:
+          summary: "🔥 Log processing errors: {{ $value }}"
+          description: "Script encountered {{ $value }} errors while processing logs"
+        labels:
+          service: log-analyzer
+          severity: critical
