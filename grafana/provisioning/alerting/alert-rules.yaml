@@ -1,70 +1,172 @@
 apiVersion: 1
-
 groups:
-  - orgId: 1
-    name: Log Analyzer Alerts
-    folder: Log Analyzer Alerts
-    interval: 60s
-    rules:
-      - uid: log-error-alert
-        title: Log Error Alert
-        condition: A
-        queries:
-          - refId: A
-            model:
-              datasource: Prometheus
-              expr: 'log_levels_total{level="ERROR"} > 0'
-              intervalMs: 60000
-              maxDataPoints: 43200
-              refId: A
-        execErrState: Error
-        for: 1m
-        noDataState: NoData
-        annotations:
-          summary: '🚨 ERROR in logs: {{ $values.A }} errors'
-          description: 'Detected {{ $values.A }} ERROR logs from instance {{ $labels.instance }}'
-        labels:
-          service: log-analyzer
-          severity: critical
-
-      - uid: log-warning-alert
-        title: Log Warning Alert
-        condition: A
-        queries:
-          - refId: A
-            model:
-              datasource: Prometheus
-              expr: 'log_levels_total{level="WARNING"} > 5'
-              intervalMs: 60000
-              maxDataPoints: 43200
-              refId: A
-        execErrState: Error
-        for: 1m
-        noDataState: NoData
-        annotations:
-          summary: '⚠️ WARNING in logs: {{ $values.A }} warnings'
-          description: 'Detected {{ $values.A }} WARNING logs from instance {{ $labels.instance }}'
-        labels:
-          service: log-analyzer
-          severity: warning
-
-      - uid: log-processing-error-alert
-        title: Log Processing Error Alert
-        condition: A
-        queries:
-          - refId: A
-            model:
-              datasource: Prometheus
-              expr: 'log_errors_total > 0'
-              intervalMs: 60000
-              maxDataPoints: 43200
-              refId: A
-        execErrState: Error
-        for: 1m
-        noDataState: NoData
-        annotations:
-          summary: '🔥 Log processing errors: {{ $values.A }}'
-          description: 'Script encountered {{ $values.A }} errors while processing logs'
-        labels:
-          service: log-analyzer
-          severity: critical
+    - orgId: 1
+      name: log-analyzer
+      folder: Log Analyzer Alerts
+      interval: 1m
+      rules:
+        - uid: cfgp0iv3hq6f4d
+          title: Log Error Alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                editorMode: builder
+                expr: log_levels_total{level="ERROR"}
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          keepFiringFor: 1m
+          annotations:
+            description: Detected {{ $value }} ERROR logs from instance {{ $labels.instance }} (level={{ $labels.level }})
+            summary: "\U0001F6A8 ERROR in logs: {{ $values.A }} errors"
+          labels:
+            service: log-analyzer
+            severity: critical
+          isPaused: false
+          notification_settings:
+            receiver: Telegram Alert
+        - uid: bfgp0shs1we0wb
+          title: Log Warning Alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                editorMode: builder
+                expr: log_levels_total{level="WARNING"}
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          keepFiringFor: 1m
+          annotations:
+            description: Detected {{ $value }} ERROR logs from instance {{ $labels.instance }} (level={{ $labels.level }})
+            summary: '⚠️ WARNING in logs: {{ $values.A }} warnings'
+          labels:
+            service: log-analyzer
+            severity: warning
+          isPaused: false
+          notification_settings:
+            receiver: Telegram Alert
+        - uid: efgp13auqjawwc
+          title: Log Processing Error Alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                editorMode: builder
+                expr: log_errors_total
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          keepFiringFor: 1m
+          annotations:
+            description: Detected {{ $value }} ERROR logs from instance {{ $labels.instance }} (level={{ $labels.level }})
+            summary: "\U0001F525 Log processing errors: {{ $values.A }}"
+          labels:
+            service: log-analyzer
+            severity: critical
+          isPaused: false
+          notification_settings:
+            receiver: Telegram Alert
