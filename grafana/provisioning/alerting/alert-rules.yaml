@@ -11,7 +11,7 @@ groups:
         condition: A
         
           - refId: A
-            datasourceName: Prometheus
+            datasourceUid: Prometheus
             model:
               expr: 'log_levels_total{level="ERROR"}'
               intervalMs: 60000
@@ -33,7 +33,7 @@ groups:
         condition: A
         
           - refId: A
-            datasourceName: Prometheus
+            datasourceUid: Prometheus
             model:
               expr: 'log_levels_total{level="WARNING"}'
               intervalMs: 60000
@@ -55,7 +55,7 @@ groups:
         condition: A
         
           - refId: A
-            datasourceName: Prometheus
+            datasourceUid: Prometheus
             model:
               expr: 'log_errors_total'
               intervalMs: 60000
