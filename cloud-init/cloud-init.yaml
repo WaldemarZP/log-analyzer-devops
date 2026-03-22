@@ -1,8 +1,14 @@
 #cloud-config
-package_update: false
+package_update: true
 package_upgrade: false
 
 packages:
+  - docker.io
+  - docker-compose-plugin
+  - nginx
+  - python3
+  - python3-pip
+  - git
   - curl
 
 users:
@@ -11,8 +17,22 @@ users:
     shell: /bin/bash
 
 runcmd:
-  - [curl, -s, -o, /tmp/deploy-cloud.sh, "https://raw.githubusercontent.com/WaldemarZP/log-analyzer-devops/main/deploy-cloud.sh"]
-  - [chmod, +x, /tmp/deploy-cloud.sh]
-  - [/tmp/deploy-cloud.sh]
+  # Clone repository
+  - [git, clone, "https://github.com/WaldemarZP/log-analyzer-devops.git", "/home/ubuntu/log-analyzer-devops"]
 
-final_message: "Log Analyzer cloud deployment completed"
+  # Install Python dependencies
+  - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && pip3 install -r requirements.txt"]
+
+  # Run deployment script
+  - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && chmod +x deploy.sh && ./deploy.sh"]
+
+  # Enable log analyzer service
+  - [bash, -c, "cp /home/ubuntu/log-analyzer-devops/systemd/log-analyzer.service /etc/systemd/system/"]
+  - [systemctl, daemon-reload]
+  - [systemctl, enable, log-analyzer.service]
+  - [systemctl, start, log-analyzer.service]
+
+  # Restart Nginx
+  - [systemctl, restart, nginx]
+
+final_message: "Log Analyzer stack deployment completed"
