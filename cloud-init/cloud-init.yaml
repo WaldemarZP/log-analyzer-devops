@@ -7,7 +7,7 @@ packages:
   - docker-compose-plugin
   - nginx
   - python3
-  - python3-requests
+  - python3-pip
   - git
   - curl
 
@@ -17,16 +17,32 @@ users:
     shell: /bin/bash
 
 runcmd:
+  # Clone repository
   - [git, clone, "https://github.com/WaldemarZP/log-analyzer-devops.git", "/home/ubuntu/log-analyzer-devops"]
+
+  # Install Python dependencies from requirements.txt
+  - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && pip3 install -r requirements.txt"]
+
+  # Install docker-compose-plugin
   - [apt-get, update]
   - [apt-get, install, -y, docker-compose-plugin]
+
+  # Run deployment script (starts Grafana + Prometheus containers)
   - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && chmod +x deploy.sh && ./deploy.sh"]
+
+  # Enable and start log analyzer service
   - [bash, -c, "cp /home/ubuntu/log-analyzer-devops/systemd/log-analyzer.service /etc/systemd/system/"]
   - [systemctl, daemon-reload]
   - [systemctl, enable, log-analyzer.service]
   - [systemctl, start, log-analyzer.service]
+
+  # Restart Nginx for reverse proxy
   - [systemctl, restart, nginx]
+
+  # Wait for services to stabilize
   - [sleep, "60"]
+
+  # Verify deployment
   - [bash, -c, "echo '✅ Log Analyzer stack deployed successfully!'"]
 
 final_message: "Log Analyzer stack deployment completed"
