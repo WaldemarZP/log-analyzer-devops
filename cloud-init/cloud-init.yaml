@@ -15,13 +15,10 @@ runcmd:
   # Wait for apt background processes to finish
   - [bash, -c, "for i in {1..24}; do systemctl is-active --quiet apt-daily.service apt-daily-upgrade.service 2>/dev/null || break; sleep 5; done"]
 
-  # Clone repository
+  # Clone repository (убраны лишние пробелы в конце URL!)
   - [git, clone, "https://github.com/WaldemarZP/log-analyzer-devops.git", "/home/ubuntu/log-analyzer-devops"]
 
-  # Install Python dependencies (with --break-system-packages for Ubuntu 24.04)
-  - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && pip3 install --break-system-packages -r requirements.txt"]
-
-  # Run deployment script
+  # Run deployment script (он сам установит зависимости через --break-system-packages)
   - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && chmod +x deploy.sh && ./deploy.sh"]
 
   # Enable log analyzer service
@@ -32,3 +29,5 @@ runcmd:
 
   # Restart Nginx
   - [systemctl, restart, nginx]
+
+final_message: "Log Analyzer stack deployment completed"

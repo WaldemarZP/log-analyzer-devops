@@ -28,7 +28,7 @@ usermod -aG docker "$SCRIPT_USER"
 # Step 4: Installing Python dependencies
 echo "🐍 Installing Python dependencies..."
 apt install -y python3-requests
-# pip3 install -r requirements.txt --break-system-packages
+pip3 install --break-system-packages -r requirements.txt
 
 # Step 5: Configuring Nginx
 echo "⚙️  Configuring Nginx reverse proxy..."
