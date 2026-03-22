@@ -17,14 +17,16 @@ users:
     shell: /bin/bash
 
 runcmd:
-  - [git, clone, "https://github.com/WaldemarZP/log-analyzer-devops.git", "/opt/log-analyzer-devops"]
-  - [bash, -c, "cd /opt/log-analyzer-devops && chmod +x deploy.sh && ./deploy.sh"]
-  - [bash, -c, "cp /opt/log-analyzer-devops/systemd/log-analyzer.service /etc/systemd/system/"]
+  - [git, clone, "https://github.com/WaldemarZP/log-analyzer-devops.git", "/home/ubuntu/log-analyzer-devops"]
+  - [apt-get, update]
+  - [apt-get, install, -y, docker-compose-plugin]
+  - [bash, -c, "cd /home/ubuntu/log-analyzer-devops && chmod +x deploy.sh && ./deploy.sh"]
+  - [bash, -c, "cp /home/ubuntu/log-analyzer-devops/systemd/log-analyzer.service /etc/systemd/system/"]
   - [systemctl, daemon-reload]
   - [systemctl, enable, log-analyzer.service]
   - [systemctl, start, log-analyzer.service]
   - [systemctl, restart, nginx]
-  - [sleep, "30"]
+  - [sleep, "60"]
   - [bash, -c, "echo '✅ Log Analyzer stack deployed successfully!'"]
 
 final_message: "Log Analyzer stack deployment completed"
