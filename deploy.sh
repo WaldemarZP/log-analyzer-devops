@@ -42,7 +42,8 @@ nginx -t && systemctl restart nginx
 # Step 6: Launching the monitoring stack
 echo "🐳 Starting monitoring stack..."
 cd /home/"$SCRIPT_USER"/log-analyzer-devops
-sudo -u "$SCRIPT_USER" docker-compose up -d
+chown -R "$SCRIPT_USER":"$SCRIPT_USER" /home/"$SCRIPT_USER"/log-analyzer-devops
+sudo -u "$SCRIPT_USER" docker compose up -d
 
 echo ""
 echo "✅ Deployment completed successfully!"
