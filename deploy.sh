@@ -39,6 +39,12 @@ ln -sf /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzer.conf /etc/ngi
 rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl restart nginx
 
+# Step 5.1: Apply security hardening to Nginx
+echo "🛡️  Applying Nginx security hardening (rate limiting)..."
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/rate-limit.conf /etc/nginx/conf.d/
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
+nginx -t && systemctl restart nginx
+
 # Step 6: Launching the monitoring stack
 echo "🐳 Starting monitoring stack..."
 cd /home/"$SCRIPT_USER"/log-analyzer-devops
