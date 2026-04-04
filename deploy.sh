@@ -33,17 +33,16 @@ pip3 install --break-system-packages prometheus_client requests || true
 # Then attempt full requirements (non-critical packages may fail safely)
 pip3 install --break-system-packages -r requirements.txt 2>&1 | grep -v "Cannot uninstall" || true
 
-# Step 5: Configuring Nginx
-echo "⚙️  Configuring Nginx reverse proxy..."
-ln -sf /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
+# Step 5: Configuring Nginx with security hardening
+echo "⚙️  Configuring Nginx reverse proxy with rate limiting..."
+# Remove old configs
 rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl restart nginx
-
-# Step 5.1: Apply security hardening to Nginx (rate limiting zones at http level)
-echo "🛡️  Applying Nginx security hardening (rate limiting zones)..."
+rm -f /etc/nginx/conf.d/rate-limit.conf
+rm -f /etc/nginx/conf.d/limit-zones.conf
+# Install new configs
 cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/rate-limit.conf /etc/nginx/conf.d/limit-zones.conf
 cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
-rm -f /etc/nginx/sites-enabled/default
+# Test and restart
 nginx -t && systemctl restart nginx
 
 # Step 6: Launching the monitoring stack
