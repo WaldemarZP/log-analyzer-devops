@@ -51,17 +51,22 @@ cd /home/"$SCRIPT_USER"/log-analyzer-devops
 chown -R "$SCRIPT_USER":"$SCRIPT_USER" /home/"$SCRIPT_USER"/log-analyzer-devops
 sudo -u "$SCRIPT_USER" docker compose up -d
 
-# Step 7: Launch multiple log analyzer instances for horizontal scaling
-echo "📈 Launching 3 log analyzer instances for horizontal scaling..."
-for INSTANCE in 1 2 3; do
-    PORT=$((8000 + INSTANCE))
-    echo "   • Starting analyzer-$INSTANCE on port $PORT..."
-    sudo -u "$SCRIPT_USER" nohup python3 /home/"$SCRIPT_USER"/log-analyzer-devops/log_analyzer.py \
-        --file /home/"$SCRIPT_USER"/log-analyzer-devops/sample.log \
-        --port $PORT > /var/log/analyzer-$INSTANCE.log 2>&1 &
-    sleep 2
-done
-echo "✅ All analyzer instances started successfully"
+# Step 7: Configure horizontal scaling with systemd template (3 instances)
+echo "📈 Configuring horizontal scaling (3 instances via systemd)..."
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/systemd/log-analyzer@.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now log-analyzer@1.service
+systemctl enable --now log-analyzer@2.service
+systemctl enable --now log-analyzer@3.service
+echo "✅ All 3 analyzer instances started (ports 8001-8003)"
+
+# Step 8: Apply Nginx load balancing configuration
+echo "⚖️  Applying Nginx load balancing configuration..."
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzers-upstream.conf /etc/nginx/conf.d/
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
+nginx -t && systemctl restart nginx
+echo "✅ Load balancing active (round-robin between instances)"
+
 echo ""
 echo "✅ Deployment completed successfully!"
 echo ""
