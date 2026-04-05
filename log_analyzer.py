@@ -79,12 +79,17 @@ def main():
     parser.add_argument("--file", type=str, default="sample.log", help="Path to the log file")
     parser.add_argument("--output", type=str, default="report.json", help="Path to the report file")
     parser.add_argument("--level", type=str, help="Filter by log level (ERROR, WARNING, INFO)")
+    parser.add_argument("--port", type=int, default=8000, help="Port for Prometheus metrics server (default: 8000)")
 
     args = parser.parse_args()
 
     try:
+        # Start metrics server BEFORE processing logs
+        start_http_server(args.port)
+        logger.info(f"🚀 Prometheus metrics server started on port {args.port}")
+
         logger.info(f"LAUNCHING THE LOG ANALYZER")
-        logger.info(f"Parameters: file:{args.file}, output:{args.output}, level:{args.level}")
+        logger.info(f"Parameters: file:{args.file}, output:{args.output}, level:{args.level}, port:{args.port}")
 
         content = read_log_files(args.file)
         stats = parse_log_levels(content, args.level)
@@ -93,18 +98,22 @@ def main():
         logger.info("Stats by logs level:")
         for level, count in stats.items():
             logger.info(f" {level}: {count}")
+
+        # Keep server alive indefinitely for continuous monitoring
+        logger.info("📈 Keeping metrics server alive for continuous monitoring...")
+        while True:
+            time.sleep(60)
+
+    except KeyboardInterrupt:
+        logger.info("⏹️  Stopping log analyzer (received SIGINT)")
     except Exception as e:
         logger.critical(f"Critical Error: {e}", exc_info=True)
 
 
-start_http_server(8000)
-logger.info("Prometheus metrics server started on port 8000")
-
-
 if __name__ == "__main__":
     main()
-    logger.info("Keeping metrics server alive for 60 seconds...")
-    time.sleep(60)
-    logger.info("Exiting after 60 seconds")
+    # logger.info("Keeping metrics server alive for 60 seconds...")
+    # time.sleep(60)
+    # logger.info("Exiting after 60 seconds")
     # lines = count_lines("sample.log")
     # print(f"✅ the file contains {lines} lines")
