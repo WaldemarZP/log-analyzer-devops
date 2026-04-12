@@ -33,6 +33,54 @@ pip3 install --break-system-packages prometheus_client requests || true
 # Then attempt full requirements (non-critical packages may fail safely)
 pip3 install --break-system-packages -r requirements.txt 2>&1 | grep -v "Cannot uninstall" || true
 
+# Step 4.5: Install VictoriaMetrics for long-term metrics storage (Day 18)
+echo "💾 Installing VictoriaMetrics for long-term metrics storage..."
+if ! systemctl is-active --quiet victoriametrics; then
+    VM_VERSION="v1.96.0"
+    VM_URL="https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/${VM_VERSION}/victoria-metrics-linux-amd64-${VM_VERSION}.tar.gz"
+
+    # Download and extract
+    cd /tmp
+    wget -q "$VM_URL" -O vm.tar.gz
+    tar -xzf vm.tar.gz
+
+    # Install binary
+    sudo mkdir -p /opt/victoriametrics
+    sudo mv victoria-metrics-prod /opt/victoriametrics/
+
+    # Create user (ignore if exists)
+    sudo useradd --system --no-create-home --shell /bin/false vmuser 2>/dev/null || true
+    sudo chown -R vmuser:vmuser /opt/victoriametrics
+
+    # Create data directory
+    sudo mkdir -p /var/lib/victoriametrics
+    sudo chown -R vmuser:vmuser /var/lib/victoriametrics
+
+    # Create systemd service
+    sudo tee /etc/systemd/system/victoriametrics.service > /dev/null << 'EOF'
+[Unit]
+Description=VictoriaMetrics
+After=network.target
+
+[Service]
+Type=simple
+User=vmuser
+ExecStart=/opt/victoriametrics/victoria-metrics-prod -storageDataPath=/var/lib/victoriametrics
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+    # Start service
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now victoriametrics.service
+    echo "✅ VictoriaMetrics installed and started on port 8428"
+else
+    echo "✅ VictoriaMetrics already running"
+fi
+
 # Step 5: Configuring Nginx with security hardening
 echo "⚙️  Configuring Nginx reverse proxy with rate limiting..."
 # Remove old configs
@@ -49,7 +97,7 @@ nginx -t && systemctl restart nginx
 echo "🐳 Starting monitoring stack..."
 cd /home/"$SCRIPT_USER"/log-analyzer-devops
 chown -R "$SCRIPT_USER":"$SCRIPT_USER" /home/"$SCRIPT_USER"/log-analyzer-devops
-sudo -u "$SCRIPT_USER" docker compose up -d
+sudo -u "$SCRIPT_USER" docker-compose -f /home/"$SCRIPT_USER"/log-analyzer-devops/docker-compose.yml up -d
 
 # Step 7: Configure horizontal scaling with systemd template (3 instances)
 echo "📈 Configuring horizontal scaling (3 instances via systemd)..."
