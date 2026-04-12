@@ -87,8 +87,9 @@ echo "⚙️  Configuring Nginx reverse proxy with rate limiting..."
 rm -f /etc/nginx/sites-enabled/default
 rm -f /etc/nginx/conf.d/rate-limit.conf
 rm -f /etc/nginx/conf.d/limit-zones.conf
-# Install new configs
-cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/rate-limit.conf /etc/nginx/conf.d/limit-zones.conf
+# Install rate limiting zones (MUST be in conf.d for http context)
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/rate-limit.conf /etc/nginx/conf.d/rate-limit.conf
+# Install main config
 cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
 # Test and restart
 nginx -t && systemctl restart nginx
@@ -111,7 +112,7 @@ echo "✅ All 3 analyzer instances started (ports 8001-8003)"
 # Step 8: Apply Nginx load balancing configuration
 echo "⚖️  Applying Nginx load balancing configuration..."
 cp /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzers-upstream.conf /etc/nginx/conf.d/
-cp /home/"$SCRIPT_USER"/log-analyzer-devops/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
+cp /home/"$SCRIPT_USER"/log-analyzer-devops/security/nginx/log-analyzer.conf /etc/nginx/sites-enabled/
 nginx -t && systemctl restart nginx
 echo "✅ Load balancing active (round-robin between instances)"
 
