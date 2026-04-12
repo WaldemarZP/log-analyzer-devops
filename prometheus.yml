@@ -8,7 +8,7 @@ rule_files:
 scrape_configs:
   - job_name: 'log-analyzer'
     static_configs:
-      - targets: ['host.docker.internal:8000']
+      - targets: ['172.17.0.1:8001', '172.17.0.1:8002', '172.17.0.1:8003']
     metrics_path: '/metrics'
 
 remote_write:
